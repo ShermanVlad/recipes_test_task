@@ -1,15 +1,12 @@
-import { useCallback, useState, useEffect } from 'react';
+import {useEffect, useState} from 'react';
 import debounce from 'lodash.debounce';
 
 const SearchComponent = ({ onSearch, value, onClear }: { onSearch: (query: string) => void, value: string, onClear: () => void }) => {
     const [query, setQuery] = useState(value);
 
-    const debouncedSearch = useCallback(
-        debounce((searchTerm: string) => {
-            onSearch(searchTerm);
-        }, 500),
-        [onSearch]
-    );
+    const debouncedSearch = debounce((searchTerm: string) => {
+        onSearch(searchTerm);
+    }, 500);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;

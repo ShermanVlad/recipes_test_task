@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useCategories, useRecipes, useSearchRecipes} from "../hooks/useRecipes";
 import debounce from 'lodash.debounce';
 import SearchComponent from "../components/SearchComponent";
@@ -24,13 +24,10 @@ const RecipesPage = ({addToFavorites, removeFromFavorites, selectedRecipes}: {
     const {data: allRecipes, isLoading: isAllRecipesLoading, error: allRecipesError} = useRecipes();
     const {data: categories, isLoading: isCategoriesLoading} = useCategories();
 
-    const debouncedSearch = useCallback(
-        debounce((query: string) => {
-            setSearchQuery(query);
-            setCurrentPage(1);
-        }, 500),
-        [setSearchQuery, setCurrentPage]
-    );
+    const debouncedSearch = debounce((query: string) => {
+        setSearchQuery(query);
+        setCurrentPage(1);
+    }, 500);
 
     const recipesToDisplay = searchQuery.length === 0 ? allRecipes : searchResults;
 
