@@ -8,7 +8,7 @@ const SearchComponent = ({ onSearch, value, onClear }: { onSearch: (query: strin
         debounce((searchTerm: string) => {
             onSearch(searchTerm);
         }, 500),
-        []
+        [onSearch]
     );
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

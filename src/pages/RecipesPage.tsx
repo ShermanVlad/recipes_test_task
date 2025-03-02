@@ -29,14 +29,13 @@ const RecipesPage = ({addToFavorites, removeFromFavorites, selectedRecipes}: {
             setSearchQuery(query);
             setCurrentPage(1);
         }, 500),
-        []
+        [setSearchQuery, setCurrentPage]
     );
 
     const recipesToDisplay = searchQuery.length === 0 ? allRecipes : searchResults;
 
     const filteredRecipes = recipesToDisplay?.filter((recipe: Recipe) => {
-        const matchesCategory = categoryFilter ? recipe.strCategory === categoryFilter : true;
-        return matchesCategory;
+        return categoryFilter ? recipe.strCategory === categoryFilter : true;
     }) || [];
 
     const indexOfLastRecipe = currentPage * recipesPerPage;
